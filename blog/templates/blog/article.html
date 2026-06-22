@@ -9,14 +9,26 @@
 </head>
 <body>
     <header class="page-header">
-        <a href="/" title="На главную">На главную</a>
+        <nav class="site-navigation">
+            <ul class="navigation-list">
+                <li class="navigation-item">
+                    <a href="/" title="Home">На главную</a>
+                </li>
+                <li class="navigation-item">
+                    <a href="/tags" title="Tags">Теги</a>
+                </li>
+            </ul>
+        </nav>
     </header>
     <main class="main-article">
-        <h1>{{ article.title }}</h1>
+        <h1 class="article-title">{{ article.title }}</h1>
         {{ article.formatted_text|safe }}
     </main>
     <footer class="page-footer">
-        <p>&copy; 2026 dmitbud</p>
+        <p class="footer-copyright">&copy; 2026 dmitbud</p>
+        <section class="footer-contacts">
+            Связаться со мной:
+        </section>
     </footer>
 </body>
 </html>

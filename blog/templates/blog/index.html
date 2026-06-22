@@ -8,21 +8,35 @@
 </head>
 <body>
     <header class="page-header">
-        <a href="/" title="На главную">На главную</a>
+        <nav class="site-navigation">
+            <!-- TODO
+            <a href="/" title="Home" class="navigation-logo">
+                <img src="..." alt="..." width="..." height="...">
+            </a>
+            -->
+            <ul class="navigation-list">
+                <li class="navigation-item navigation-current">
+                    <a href="/" title="Home">На главную</a>
+                </li>
+                <li class="navigation-item">
+                    <a href="/tags" title="Tags">Теги</a>
+                </li>
+            </ul>
+        </nav>
     </header>
     <main class="main-inner">
-        <h1>Что нового</h1>
+        <h1 class="feed-header">Что нового</h1>
         {% if article_list %}
             {% for article in article_list %}
-                <article>
+                <article class="feed-item">
                     <header class="feed-item-header">
-                        <h2>
+                        <h2 class="feed-item-title">
                             <a href="/articles/{{ article.slug }}/">
                                 {{ article.title  }}
                             </a>
                         </h2>
                     </header>
-                    <p class="article-lead">{{ article.lead|safe }}</p>
+                    <p class="feed-item-lead">{{ article.lead|safe }}</p>
                     <footer class="feed-item-footer">
                         <time datetime="{{ article.published_at|date:'Y-m-d' }}">
                             {{ article.published_at }}
@@ -31,11 +45,19 @@
                 </article>
             {% endfor %}
         {% else %}
-            <p>Тут пока ничего нет</p>
+            <p class="empty-feed">Тут пока ничего нет</p>
         {% endif %}
+        <!-- TODO pagination
+        <ul class="pagination">
+            <li class="pagination-item pagination-current"><a href="...">1</a></li>
+            <li class="pagination-item"><a href="...">2</a></li>
+        </ul>
+        -->
     </main>
     <footer class="page-footer">
-        <p>&copy; 2026 dmitbud</p>
+        <p class="footer-copyright">&copy; 2026 dmitbud</p>
+        <section class="footer-contacts">
+            Связаться со мной:
+        </section>
     </footer>
 </body>
-
