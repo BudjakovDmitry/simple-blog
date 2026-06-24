@@ -18,10 +18,10 @@ MARKDOWN_EXTENSION_CONFIG = {
         "guess_lang": False,
         "use_pygments": True,
         "noclasses": False,  # use CSS-classes rather than inline-styles
-    }
+    },
     "toc": {
-        "permalink": True.
-    }
+        "permalink": True,
+    },
 }
 
 
@@ -29,7 +29,7 @@ def render_markdown(text: str):
     return markdown.markdown(
         text,
         extensions=MARKDOWN_EXTENSIONS,
-        extension_configs=MARKDOWN_EXTENSIOPN_CONFIG,
+        extension_configs=MARKDOWN_EXTENSION_CONFIG,
         output_format="html5",
     )
 
