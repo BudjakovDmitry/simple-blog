@@ -79,7 +79,7 @@ a:hover {
     width: var(--reading-width);
     margin-left: auto;
     margin-right: auto;
-    padding-top: 60px;
+    padding-top: 40px;
 }
 
 .feed-header {
@@ -93,6 +93,7 @@ a:hover {
     display: grid;
     gap: 20px;
     padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .feed-item {
@@ -108,7 +109,7 @@ a:hover {
 
 
 .site-footer {
-    border-top: 2px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
     background-color: var(--surface-bg);
 }
 
