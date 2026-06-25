@@ -2,9 +2,12 @@
     --page-bg: #f7f5f1;
     --surface-bg: #fffefa;
     --text-color: #24221f;
+    --text-muted-color: #68635c;
     --accent-color: #19355f;
     --accent-color-hover: #0f2748;
     --border-color: #ded9d0;
+    --reading-width: 890px;
+    --radius: 12px;
     --font-serif: Georgia, "Times New Roman", serif;
     --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
@@ -26,19 +29,86 @@ a:hover {
     color: var(--accent-color-hover);
 }
 
+.container {
+    width: 1120px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .site-header {
     background-color: rgba(255, 254, 250, 0.94);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
+    font-family: var(--font-sans);
+}
+
+
+.site-navigation {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    column-gap: 50px;
+    align-items: center;
+}
+
+.navigation-list {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0;
+    margin: 0;
+}
+
+.navigation-list-item {
+    list-style: none;
+}
+
+.nav-link {
+    display: block;
+    text-decoration: none;
+    color: var(--text-color);
+    margin: 5px;
+    padding: 15px;
 }
 
 .brand {
     color: var(--text-color);
-    font-family: var(--font-sans);
     font-weight: 750;
+    font-size: 1.35rem;
     text-decoration: none;
 }
 
+.main-inner {
+    width: var(--reading-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 60px;
+}
+
+.feed-header {
+    color: var(--text-muted-color);
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+}
+
+.post-feed {
+    display: grid;
+    gap: 20px;
+    padding-top: 30px;
+}
+
+.feed-item {
+    background-color: var(--surface-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 30px;
+}
+
+.feed-item-title {
+    margin: 0;
+}
+
+
 .site-footer {
-    border-top: 1px solid var(--border-color);
+    border-top: 2px solid var(--border-color);
     background-color: var(--surface-bg);
 }
+
