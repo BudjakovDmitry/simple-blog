@@ -5,7 +5,6 @@ from django.shortcuts import render
 from .controller import (
     get_article_by_slug,
     get_last_articles,
-    get_last_articles_linux,
     get_streams,
 )
 from .models import Article
@@ -31,7 +30,17 @@ def feed(request):
 
 def linux(request):
     get_published_only = not is_user_superuser(request)
-    article_list = get_last_articles_linux(get_published_only)
+    article_list = get_last_articles(
+        get_published_only, stream="linux",
+    )
+    return render_feed(request, article_list)
+
+
+def html(request):
+    get_published_only = not is_user_superuser(request)
+    article_list =  get_last_articles(
+        get_published_only, stream="html",
+    )
     return render_feed(request, article_list)
 
 
@@ -45,8 +54,13 @@ def read(request, slug):
     except Article.DoesNotExist as error:
         raise Http404("Article not found") from error
 
-    if not request.user.is_authenticated or not request.user.is_superuser:
+    if not is_user_superuser(request):
         if not article.is_published():
             raise PermissionDenied
 
-    return render(request, "blog/article.html", {"article": article})
+    context = {
+        "article": article,
+        "stream_list": get_streams(),
+    }
+
+    return render(request, "blog/article.html", context)

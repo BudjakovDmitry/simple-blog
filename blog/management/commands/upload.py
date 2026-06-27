@@ -10,7 +10,6 @@ MARKDOWN_EXTENSIONS = [
     "extra",
     "fenced_code",
     "codehilite",
-    "toc",
 ]
 
 MARKDOWN_EXTENSION_CONFIG = {
@@ -18,9 +17,6 @@ MARKDOWN_EXTENSION_CONFIG = {
         "guess_lang": False,
         "use_pygments": True,
         "noclasses": False,  # use CSS-classes rather than inline-styles
-    },
-    "toc": {
-        "permalink": True,
     },
 }
 

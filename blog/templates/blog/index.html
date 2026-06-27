@@ -15,7 +15,7 @@
         <a href="/" class="brand">dmitbud.tech</a>
         <ul class="navigation-list">
           <li class="navigation-list-item navigation-current">
-            <a href="/" class="nav-link" title="Home">На главную</a>
+            <a href="/" class="nav-link" title="Home">Главная</a>
           </li>
           {% for stream in stream_list %}
             <li class="navigation-list-item">
@@ -26,10 +26,10 @@
       </nav>
     </div>
   </header>
-    <main class="main-inner">
-      <h1 class="feed-header">Техническая база знаний</h1>
-      {% if article_list %}
-        <section class="post-feed">
+  <main class="main-inner reading-area">
+    <h1 class="feed-header">Техническая база знаний</h1>
+    {% if article_list %}
+      <section class="post-feed">
         {% for article in article_list %}
           <article class="feed-item">
             <header class="feed-item-header">
@@ -50,22 +50,17 @@
             </footer>
           </article>
         {% endfor %}
-        </section>
-      {% else %}
-        <p class="empty-feed">Тут пока ничего нет</p>
-      {% endif %}
-        <!-- TODO pagination
-        <ul class="pagination">
-            <li class="pagination-item pagination-current"><a href="...">1</a></li>
-            <li class="pagination-item"><a href="...">2</a></li>
-        </ul>
-        -->
-    </main>
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <p>&copy; 2026 dmitbud</p>
-        <p>Связаться со мной: example@mail.com</p>
-      </div>
-    </footer>
+      </section>
+    {% else %}
+      <p class="empty-feed">Тут пока ничего нет</p>
+    {% endif %}
+    <!-- TODO pagination -->
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 dmitbud</p>
+      <p>Связаться со мной: example@mail.com</p>
+    </div>
+  </footer>
 </body>
 </html>

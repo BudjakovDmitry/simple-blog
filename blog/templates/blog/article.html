@@ -1,34 +1,43 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="description" content="{{ article.lead }}">
     <title>{{ article.title }}</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'blog/pygments.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
 </head>
 <body>
-    <header class="page-header">
-        <nav class="site-navigation">
-            <ul class="navigation-list">
-                <li class="navigation-item">
-                    <a href="/" title="Home">На главную</a>
-                </li>
-                <li class="navigation-item">
-                    <a href="/tags" title="Tags">Теги</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <main class="main-article">
+  <header class="site-header">
+    <div class="container">
+      <nav class="site-navigation">
+        <a href="/" class="brand">dmitbud.tech</a>
+        <ul class="navigation-list">
+          <li class="navigation-list-item">
+            <a href="/" class="nav-link" title="Home">Главная</a>
+          </li>
+          {% for stream in stream_list %}
+            <li class="navigation-list-item">
+              <a href="/{{ stream.route }}" class="nav-link" title="{{ stream.name }}">{{ stream.name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="main-article reading-area">
+    <article class="article">
+      <header class="article-header">
         <h1 class="article-title">{{ article.title }}</h1>
-        {{ article.formatted_text|safe }}
-    </main>
-    <footer class="page-footer">
-        <p class="footer-copyright">&copy; 2026 dmitbud</p>
-        <section class="footer-contacts">
-            Связаться со мной:
-        </section>
-    </footer>
+      </header>
+    {{ article.formatted_text|safe }}
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 dmitbud</p>
+      <p>Связаться со мной: example@mail.com</p>
+    </div>
+  </footer>
 </body>
 </html>

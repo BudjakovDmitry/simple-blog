@@ -76,10 +76,13 @@ a:hover {
 }
 
 .main-inner {
+    padding-top: 40px;
+}
+
+.reading-area {
     width: var(--reading-width);
     margin-left: auto;
     margin-right: auto;
-    padding-top: 40px;
 }
 
 .feed-header {
@@ -111,6 +114,31 @@ a:hover {
     margin: 0;
 }
 
+.empty-feed {
+    color: var(--text-muted-color);
+}
+
+.article p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.article h2 {
+    margin-bottom: 0;
+    margin-top: 50px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.article h3 {
+    margin: 0;
+}
+
+p.definition {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 10px;
+    border-left: 5px solid var(--border-color);
+}
 
 .site-footer {
     border-top: 1px solid var(--border-color);
@@ -129,3 +157,4 @@ a:hover {
 .footer-inner p {
     margin: 0;
 }
+

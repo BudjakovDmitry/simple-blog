@@ -13,26 +13,15 @@ def order_by_publication_date(queryset):
 def get_last_articles(
     published_only: bool = True,
     count: int = DEFAULT_ARTICLES_LIMIT,
-    stream_route: str | None = None,
+    stream: str | None = None,
 ):
     articles = Article.objects.all()
     if published_only:
         articles = articles.filter(status=Article.Status.PUBLISHED)
-    if stream_route:
-        articles = articles.filter(stream__route=stream_route)
+    if stream:
+        articles = articles.filter(stream__route=stream)
 
     return order_by_publication_date(articles)[:count]
-
-
-def get_last_articles_linux(
-    published_only: bool = True,
-    count: int = DEFAULT_ARTICLES_LIMIT,
-):
-    return get_last_articles(
-        published_only=published_only,
-        count=count,
-        stream_route="linux",
-    )
 
 
 def get_article_by_slug(slug: str) -> Article:
