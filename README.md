@@ -13,17 +13,13 @@ su -
 Update packages:
 
 ```bash
-apt update
-apt upgrade
+apt update && apt upgrade
 ```
 
 Install utils:
 
 ```bash
-apt install \
-    postgresql \
-    wget \
-    unzip
+apt install postgresql wget unzip tree vim
 ```
 
 Install building tools:
@@ -161,7 +157,8 @@ python -m pip install -r requirements.txt
 Update secrets:
 
 ```bash
-cp secrets/pgpass.example secrets/pgpass
+mv secrets/pgpass.example secrets/pgpass
+chmod 600 secrets/pgpass
 ```
 
 Set your own credentials to `secrets/pg_service.conf` and `pgpass`.
