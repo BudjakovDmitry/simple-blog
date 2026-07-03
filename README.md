@@ -196,6 +196,7 @@ Make shared static directory
 
 ```bash
 sudo mkdir -p /var/www/blog/static
+sudo chown -R www:angie /var/www/blog
 sudo find /var/www/blog/static -type d -exec chmod 750 {} \;
 sudo find /var/www/blog/static -type f -exec chmod 640 {} \;
 ```
