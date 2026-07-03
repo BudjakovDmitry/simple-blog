@@ -4,31 +4,38 @@
 
 ### Install pre-requirements
 
-Login as root
+Login as root:
 
 ```bash
 su -
 ```
 
-Update packages
+Update packages:
 
 ```bash
 apt update
 apt upgrade
 ```
 
-Install building tools
+Install utils:
+
+```bash
+apt install \
+    postgresql \
+    wget \
+    unzip
+```
+
+Install building tools:
 
 ```bash
 apt install build-essential gcc make
 ```
 
-Install pre-requirements
+Install pre-requirements:
 
 ```bash
 apt install \
-    wget \
-    unzip \
     zlib1g-dev \
     gdb \
     lzma \
@@ -50,20 +57,20 @@ apt install \
 
 ### Build Python from source
 
-Download Python
+Download Python:
 
 ```bash
 wget https://www.python.org/ftp/python/3.14.3/Python-3.14.3.tar.xz
 ```
 
-Unpack
+Unpack:
 
 ```bash
 tar xvf Python-3.14.3.tar.xz
 cd Python-3.14.3
 ```
 
-Build
+Build:
 
 ```bash
 mkdir -p /opt/python/3.14.3
@@ -85,6 +92,33 @@ Upgrade pip
 
 ```bash
 python -m pip install --upgrade pip
+```
+
+### Prepare database
+
+Afrer installation, Postgres will create the `postgres` user. To connect to the DBMS, we need to log in to the operating system as this user. We can either set the `postgres` user's password: `passwd postgres` and then log in with the given password: `su - postgres`; or we can log in as the `root` user and then as the `postgres` user: `su - && su postgres`. In both cases, we need `root` privileges.
+
+When we logged in as `postgres` we can connect to database using `psql`
+
+```bash
+su -
+su postgres
+psql
+```
+
+Create role
+
+```sql
+CREATE ROLE dmitbud WITH LOGIN PASSWORD 'MyStrongPassword';
+```
+
+Create database
+
+```sql
+CREATE DATABASE dmitbud
+WITH
+ENCODING='UTF8'
+owner dmitbud;
 ```
 
 ### Run project
@@ -114,7 +148,7 @@ Create and activate virtual environment
 
 ```bash
 python -m venv env
-sourve env/bin/activate
+source env/bin/activate
 ```
 
 Install project requirements
