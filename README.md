@@ -19,7 +19,7 @@ apt update && apt upgrade
 Install utils:
 
 ```bash
-apt install postgresql wget curl unzip tree vim ca-certificates
+apt install wget curl unzip tree vim
 ```
 
 Install building tools:
@@ -32,8 +32,11 @@ Install pre-requirements:
 
 ```bash
 apt install \
+    ca-certificates \
+    debian-archive-keyring \
     zlib1g-dev \
     gdb \
+    gnupg2 \
     lzma \
     lcov \
     libbz2-dev \
@@ -43,6 +46,7 @@ apt install \
     libffi-dev \
     libreadline-dev \
     libncurses5-dev \
+    lsb-release \
     uuid-dev \
     libgdbm-dev \
     libgdbm-compat-dev \
@@ -51,32 +55,67 @@ apt install \
     inetutils-inetd
 ```
 
-### Install Angie web-server
+### Install Nginx
 
-Download Angie repository open key
-
-```bash
-curl -o /etc/apt/trusted.gpg.d/angie-signing.gpg https://angie.software/keys/angie-signing.gpg
-```
-
-Connect to the Angie repository
+Import an official nginx signing key
 
 ```bash
-echo "deb https://download.angie.software/angie/$(. /etc/os-release && echo "$ID/$VERSION_ID $VERSION_CODENAME") main" \
-     | tee /etc/apt/sources.list.d/angie.list > /dev/null
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
+    | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
 ```
 
-Update repository index
+Set up the apt repository for stable nginx packages:
 
 ```bash
-apt update
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+https://nginx.org/packages/debian `lsb_release -cs` nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
 ```
 
-Install Angie
+Set up repository pinning to prefer nginx packages over distribution-provided ones:
 
 ```bash
-apt install angie
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
+    | sudo tee /etc/apt/preferences.d/99nginx
 ```
+
+Install Nginx
+
+```bash
+apt update && apt install nginx
+```
+
+### Install and prepare PostgreSQL
+
+Install PostgreSQL
+
+```bash
+apt install postgresql
+```
+
+Login as a `postgres` user an use `psql` tool to connect to Postgres.
+
+```bash
+su - postgres
+psql
+```
+
+Create role (don't forget to change password):
+
+```sql
+CREATE ROLE dmitbud WITH LOGIN PASSWORD 'MyStrongPassword';
+```
+
+Create database:
+
+```sql
+CREATE DATABASE knowladge_base
+WITH
+ENCODING='UTF8'
+owner dmitbud;
+```
+
+Now quit from `psql`: `\q` and logout from `postgres` user: `exit`.
 
 ### Build Python from source
 
@@ -117,33 +156,6 @@ Upgrade pip
 python -m pip install --upgrade pip
 ```
 
-### Prepare database
-
-Afrer installation, Postgres will create the `postgres` user. To connect to the DBMS, we need to log in to the operating system as this user. We can either set the `postgres` user's password: `passwd postgres` and then log in with the given password: `su - postgres`; or we can log in as the `root` user and then as the `postgres` user: `su - && su postgres`. In both cases, we need `root` privileges.
-
-When we logged in as `postgres` we can connect to database using `psql`
-
-```bash
-su -
-su postgres
-psql
-```
-
-Create role
-
-```sql
-CREATE ROLE dmitbud WITH LOGIN PASSWORD 'MyStrongPassword';
-```
-
-Create database
-
-```sql
-CREATE DATABASE dmitbud
-WITH
-ENCODING='UTF8'
-owner dmitbud;
-```
-
 ### Run project
 
 Login as a regular user. Create `code` direcotory
@@ -181,24 +193,29 @@ pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
 
+Set your own credentials to `secrets/pg_service.conf` and `pgpass`.
+
+### For production
+
+Login as a regular user.
+
+Make shared static directories
+
+```bash
+# static files
+sudo mkdir -p /var/dmitbud/static
+# secrets
+sudo mkdir -p /etc/dmitbud/postgres
+# sudo chown -R www:angie /var/www/blog
+# sudo find /var/www/blog/static -type d -exec chmod 750 {} \;
+# sudo find /var/www/blog/static -type f -exec chmod 640 {} \;
+```
+
 Update secrets:
 
 ```bash
-mv secrets/pgpass.example secrets/pgpass
-chmod 600 secrets/pgpass
-```
-
-Set your own credentials to `secrets/pg_service.conf` and `pgpass`.
-
-For production.
-
-Make shared static directory
-
-```bash
-sudo mkdir -p /var/www/blog/static
-sudo chown -R www:angie /var/www/blog
-sudo find /var/www/blog/static -type d -exec chmod 750 {} \;
-sudo find /var/www/blog/static -type f -exec chmod 640 {} \;
+mv secrets/pgpass.example /etc/blog/postgres/pgpass
+chmod 600 /etc/blog/postgres/pgpass
 ```
 
 ```bash
@@ -208,6 +225,6 @@ sudo mv /etc/angie/http.d/default.conf /etc/angie/http.d/default.conf.factory
 sudo angie -t
 # or
 sudo /usr/sbin/angie -t
-sudo systemctl reload angie
+udo systemctl reload angie
 ```
 
