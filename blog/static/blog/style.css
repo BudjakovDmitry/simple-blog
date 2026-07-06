@@ -114,6 +114,15 @@ a:hover {
     margin: 0;
 }
 
+.feed-item-footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: 10px;
+    margin-top: 10px;
+    color: var(--text-muted-color);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+}
+
 .empty-feed {
     color: var(--text-muted-color);
 }

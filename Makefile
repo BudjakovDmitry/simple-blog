@@ -33,13 +33,24 @@ collectstatic:
 superuser:
 	PGSERVICEFILE=/etc/dmitbud/postgres/pg_service.conf DJANGO_SETTINGS_MODULE=dmitbud.settings.production python manage.py createsuperuser
 
+# Create local superuser
+.PHONY: superuserlocal
+superuserlocal:
+	PGSERVICEFILE=$(CURDIR)/secrets/pg_service.conf DJANGO_SETTINGS_MODULE=dmitbud.settings.development python manage.py createsuperuser
+
+# Run shell local
+.PHONY: shelllocal
+shellloccal:
+	PGSERVICEFILE=$(CURDIR)/secrets/pg_service.conf DJANGO_SETTINGS_MODULE=dmitbud.settings.development python manage.py shell
+
+
 # Upload article as draft locally
 .PHONY: uploadlocal
 uploadlocal:
 ifndef ARTICLE
 	$(error Usage: make upload ARTICLE=/path/to/article.md)
 endif
-	python manage.py upload $(ARTICLE)
+	PGSERVICEFILE=$(CURDIR)/secrets/pg_service.conf DJANGO_SETTINGS_MODULE=dmitbud.settings.development python manage.py upload $(ARTICLE)
 
 # Upload article as draft
 .PHONY: upload

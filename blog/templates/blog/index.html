@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="keywords" content="Linux, блог">
   <meta name="description" content="Технический блог о Linux, сетях и разработке">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>dmitbud.tech - технический блог</title>
   <link rel="stylesheet" href="{% static 'blog/style.css' %}">
 </head>
@@ -12,11 +13,8 @@
   <header class="site-header">
     <div class="container">
       <nav class="site-navigation">
-        <a href="/" class="brand">dmitbud.tech</a>
+        <a href="/" class="brand" title="Home">dmitbud.tech</a>
         <ul class="navigation-list">
-          <li class="navigation-list-item navigation-current">
-            <a href="/" class="nav-link" title="Home">Главная</a>
-          </li>
           {% for stream in stream_list %}
             <li class="navigation-list-item">
               <a href="/{{ stream.route }}" class="nav-link" title="{{ stream.name }}">{{ stream.name }}</a>
@@ -42,7 +40,7 @@
             <footer class="feed-item-footer">
               {% if article.published_at %}
                 <time datetime="{{ article.published_at|date:'Y-m-d' }}">
-                  {{ article.published_at }}
+                  {{ article.published_at|date:'d F Y' }}
                 </time>
               {% else %}
                 <span class="publish-waiting">Ожидает публикации</span>
