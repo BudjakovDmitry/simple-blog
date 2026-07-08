@@ -58,4 +58,4 @@ upload:
 ifndef ARTICLE
 	$(error Usage: make upload ARTICLE=/path/to/article.md)
 endif
-	PGSERVICEFILE=/etc/dmitbud/postgres/pg_service.conf DJANGO_SETTINGS_MODULE=dmitbud.settings.production make upload $(ARTICLE)
+	PGSERVICEFILE=/etc/dmitbud/postgres/pg_service.conf DJANGO_SETTINGS_MODULE=dmitbud.settings.production python manage.py upload $(ARTICLE)
