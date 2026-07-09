@@ -4,14 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="description" content="{{ article.lead }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ article.title }}</title>
     <link rel="stylesheet" href="{% static 'blog/style.css' %}">
 </head>
 <body>
   <header class="site-header">
-    <div class="container">
+    <div class="container navigation-container">
+      <a href="/" class="brand">dmitbud.tech</a>
       <nav class="site-navigation">
-        <a href="/" class="brand">dmitbud.tech</a>
         <ul class="navigation-list">
           {% for stream in stream_list %}
             <li class="navigation-list-item">
@@ -22,13 +23,15 @@
       </nav>
     </div>
   </header>
-  <main class="main-inner reading-area">
-    <article class="article">
-      <header class="article-header">
-        <h1 class="article-title">{{ article.title }}</h1>
-      </header>
-    {{ article.formatted_text|safe }}
-    </article>
+  <main class="main-inner">
+    <div class="container article-container">
+      <article class="article">
+        <header class="article-header">
+          <h1 class="article-title">{{ article.title }}</h1>
+        </header>
+        {{ article.formatted_text|safe }}
+      </article>
+    </div>
   </main>
   <!--
   <footer class="site-footer">
