@@ -167,3 +167,10 @@ p.definition {
     margin: 0;
 }
 
+pre.codehilite {
+    border: 1px solid #e7e7e7;
+    padding: 20px;
+    border-radius: 7px;
+    background-color: #f6f6f6;
+}
+
