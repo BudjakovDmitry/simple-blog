@@ -152,8 +152,11 @@ a:hover {
     border-bottom: 1px solid var(--border-color);
 }
 
-.article p {
+.article {
     font-size: 1.2em;
+}
+
+.article p {
     margin-top: 10px;
     margin-bottom: 10px;
 }
