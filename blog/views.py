@@ -42,6 +42,13 @@ def python(request):
     )
     return render_feed(request, article_list)
 
+def postgres(request):
+    get_published_only = not is_user_superuser(request)
+    article_list = get_last_articles(
+        get_published_only, stream="postgres",
+    )
+    return render_feed(request, article_list)
+
 
 def read(request, slug):
     try:
