@@ -1,45 +1,18 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="utf-8">
-    <meta name="description" content="{{ article.lead }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ article.title }}</title>
-    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
-</head>
-<body>
-  <header class="site-header">
-    <div class="container navigation-container">
-      <a href="/" class="brand">dmitbud.tech</a>
-      <nav class="site-navigation">
-        <ul class="navigation-list">
-          {% for stream in stream_list %}
-            <li class="navigation-list-item">
-              <a href="/{{ stream.route }}" class="nav-link" title="{{ stream.name }}">{{ stream.name }}</a>
-            </li>
-          {% endfor %}
-        </ul>
-      </nav>
-    </div>
-  </header>
-  <main class="main-inner">
-    <div class="container article-container">
-      <article class="article">
-        <header class="article-header">
-          <h1 class="article-title">{{ article.title }}</h1>
-        </header>
-        {{ article.formatted_text|safe }}
-      </article>
-    </div>
-  </main>
-  <!--
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>&copy; 2026 dmitbud</p>
-      <p>Связаться со мной: <a href="mailto:me@dmitbud.tech">me@dmitbud.tech</a></p>
-    </div>
-  </footer>
-  -->
-</body>
-</html>
+
+{% block description %}"{{ article.lead }}"{% endblock %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block main-inner %}
+<div class="container article-container">
+  <article class="article">
+    <header class="article-header">
+      <h1 class="article-title">{{ article.title }}</h1>
+    </header>
+    {{ article.formatted_text|safe }}
+  </article>
+</div>
+{% endblock %}
+

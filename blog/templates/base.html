@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="keywords" content="Linux, блог">
+  <meta name="description" content={% block description %}{% endblock %}>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container navigation-container">
+      <a href="/" class="brand" title="Home">dmitbud.tech</a>
+      <nav class="site-navigation">
+        <ul class="navigation-list">
+          {% for stream in stream_list %}
+            <li class="navigation-list-item">
+              <a href="/{{ stream.route }}" class="nav-link" title="{{ stream.name }}">{{ stream.name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="main-inner">
+    {% block main-inner %}
+    {% endblock %}
+  </main>
+  <!--
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 dmitbud</p>
+      <p>Связаться со мной: <a href="mailto:me@dmitbud.tech">me@dmitbud.tech</a></p>
+    </div>
+  </footer>
+  -->
+</body>
+</html>

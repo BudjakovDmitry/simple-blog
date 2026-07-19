@@ -1,67 +1,38 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8">
-  <meta name="keywords" content="Linux, блог">
-  <meta name="description" content="Технический блог о Linux, сетях и разработке">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>dmitbud.tech - технический блог</title>
-  <link rel="stylesheet" href="{% static 'blog/style.css' %}">
-</head>
-<body>
-  <header class="site-header">
-    <div class="container navigation-container">
-      <a href="/" class="brand" title="Home">dmitbud.tech</a>
-      <nav class="site-navigation">
-        <ul class="navigation-list">
-          {% for stream in stream_list %}
-            <li class="navigation-list-item">
-              <a href="/{{ stream.route }}" class="nav-link" title="{{ stream.name }}">{{ stream.name }}</a>
-            </li>
-          {% endfor %}
-        </ul>
-      </nav>
-    </div>
-  </header>
-  <main class="main-inner">
-    <div class="container main-container">
-      <h1 class="feed-header">Последние статьи</h1>
-      {% if article_list %}
-        <section class="post-feed">
-          {% for article in article_list %}
-            <article class="feed-item">
-              <header class="feed-item-header">
-                <h2 class="feed-item-title">
-                  <a href="/articles/{{ article.slug }}/">{{ article.title  }}</a>
-                </h2>
-              </header>
-              <p class="feed-item-lead">{{ article.lead|safe }}</p>
-              <a href="/articles/{{ article.slug }}/">Читать</a>
-              <footer class="feed-item-footer">
-                {% if article.published_at %}
-                  <time datetime="{{ article.published_at|date:'Y-m-d' }}">
-                    {{ article.published_at|date:'d F Y' }}
-                  </time>
-                {% else %}
-                  <span class="publish-waiting">Ожидает публикации</span>
-                {% endif %}
-              </footer>
-            </article>
-          {% endfor %}
-        </section>
-      {% else %}
-        <p class="empty-feed">Тут пока ничего нет</p>
-      {% endif %}
-    </div>
-  </main>
-  <!--
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>&copy; 2026 dmitbud</p>
-      <p>Связаться со мной: <a href="mailto:me@dmitbud.tech">me@dmitbud.tech</a></p>
-    </div>
-  </footer>
-  -->
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block description %}"Технический блог о Linux, сетях и разработке"{% endblock %}
+
+{% block title %}dmitbud.tech - технический блог{% endblock %}
+
+{% block main-inner %}
+<div class="container main-container">
+  <h1 class="feed-header">Последние статьи</h1>
+  {% if article_list %}
+    <section class="post-feed">
+      {% for article in article_list %}
+        <article class="feed-item">
+          <header class="feed-item-header">
+            <h2 class="feed-item-title">
+              <a href="/articles/{{ article.slug }}/">{{ article.title  }}</a>
+            </h2>
+          </header>
+          <p class="feed-item-lead">{{ article.lead|safe }}</p>
+          <a href="/articles/{{ article.slug }}/">Читать</a>
+          <footer class="feed-item-footer">
+            {% if article.published_at %}
+              <time datetime="{{ article.published_at|date:'Y-m-d' }}">
+                {{ article.published_at|date:'d F Y' }}
+              </time>
+            {% else %}
+              <span class="publish-waiting">Ожидает публикации</span>
+            {% endif %}
+          </footer>
+        </article>
+      {% endfor %}
+    </section>
+  {% else %}
+    <p class="empty-feed">Тут пока ничего нет</p>
+  {% endif %}
+</div>
+{% endblock main-inner %}
+
